@@ -18,11 +18,11 @@ $(document).ready(function () {
     $('.fancybox').fancybox();
     $('.fancybox-media').attr('rel','media-gallery').fancybox({
         arrows: false,
-        'maxWidth': 720,
-        'width': 720,
-        'maxHeigth': 480,
-        'heigth': 480,
-        'helpers': {
+        maxWidth: 720,
+        width: 720,
+        maxHeight: 480,
+        height: 480,
+        helpers: {
             media:{},
             buttons: {}
         }
