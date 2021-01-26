@@ -16,7 +16,7 @@ $(document).ready(function () {
         }
     );
     $('.fancybox').fancybox();
-    $('.fancybox-media').attr('rel','media-galery').fancybox({
+    $('.fancybox-media').attr('rel','media-gallery').fancybox({
         arrows: false,
         'maxWidth': 720,
         'width': 720,
