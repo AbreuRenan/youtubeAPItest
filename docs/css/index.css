@@ -1,7 +1,5 @@
 body {
     background: #F0F0F0;
-    width: 100vw;
-    height: 100vh;
 }
 
 div#janela ul {
@@ -34,18 +32,22 @@ div#janela ul li.principal div.foto div.legenda:hover {
 
 div#janela ul li.principal div.foto div.legenda {
     position: absolute;
-    top: 135px; left: 0;
-    width: 310px; height: 150px;
+    top: 130px; left: 0;
+    width: 320px; height: 50px;
     z-index: 2;
-    padding: 5px;
+    padding: 0 5px;
     cursor: pointer;
     background-color: rgba(0,0,0,0.7);
+    box-sizing: border-box;
     
     -webkit-transition: all 0.4s ease-out;
     -moz-transition: all 0.4s ease-out;
     -ms-transition: all 0.4s ease-out;
     -o-transition: all 0.4s ease-out;   
     transition: all 0.4s ease-out;
+}
+div#janela ul li.principal div.foto div.legenda:hover{
+    height: 150px
 }
 
 div#janela ul li.principal div.foto div.legenda h5 {

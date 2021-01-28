@@ -1,3 +1,4 @@
+
 var nomeCanal = 'jovemnerd';
 var upload_id;
 const API_KEY = 'AIzaSyDR4h45cOPOl8DbtpwSa4erUuO6SaEQW_U'
@@ -51,20 +52,21 @@ $(document).ready(function () {
     async function pegarVideos(listId) {
         $.get("https://www.googleapis.com/youtube/v3/playlistItems", {
             part: 'snippet',
-            maxResults: 9,
+            maxResults: 3,
             playlistId: await listId,
             key: API_KEY
         },
             function (data) {
-                let videoData = { imagem: '', arquivo: '', titulo: '', desc: '', dataPub: '', videoID: '' }
+                let videoData = { imagem: '', arquivo: '', titulo: '', desc: '', dataPub: '', videoID: ''}
                 console.log(data)
                 $.each(data.items, function (i, item) {
+                    videoData.videoID = item.snippet.resourceId.videoId
                     videoData.titulo = item.snippet.title
                     videoData.desc = item.snippet.description
                     videoData.dataPub = formatarData(item.snippet.publishedAt)
                     videoData.imagem = item.snippet.thumbnails.medium.url
 
-                    videoData.arquivo = `<li class="principal"><div class="foto"><img src="${videoData.imagem}" /><div class="legenda"><h5>${videoData.titulo}</h5><p>${videoData.desc}</p><p class="dataPub">Data: ${videoData.dataPub}</p></div></div></li>`
+                    videoData.arquivo = `<li class="principal"><a class="fancybox-media" rel="media-gallery" href="https://www.youtube.com/watch?v=${videoData.videoID}"><div class="foto"><img src="${videoData.imagem}" /><div class="legenda"><h5>${videoData.titulo}</h5><p>${videoData.desc}</p><p class="dataPub">Data: ${videoData.dataPub}</p></div></div></a></li>`
                     $('#janela ul').append(videoData.arquivo)
 
                 })
