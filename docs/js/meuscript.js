@@ -1,7 +1,7 @@
 var nomeCanal = 'jovemnerd';
 var upload_id;
-const API_KEY = ''
-const CLIENT_ID_OAUTH = ''
+const API_KEY = process.env.YOUTUBE_API_KEY
+console.log(API_KEY)
 
 $(document).ready(function() {
     console.log("meuscript carregado")
@@ -108,6 +108,4 @@ $(document).ready(function() {
     }
 
     $('#getNome_canal').click(() => getInput_nomeCanal())
-
-
 });
