@@ -18,7 +18,7 @@ $(document).ready(function() {
         }
     })
 
-    function pegarIdCanal(nomeUsuarioDoCanal) {
+    function getIDbyName(nomeUsuarioDoCanal) {
         const userName = nomeUsuarioDoCanal
         $.get("https://www.googleapis.com/youtube/v3/channels", {
                 part: 'contentDetails',
@@ -27,12 +27,37 @@ $(document).ready(function() {
             },
             function(data) {
                 let idPlayList = data.items[0].contentDetails.relatedPlaylists.uploads
-                pegarVideos(idPlayList)
+                getSnippet(idPlayList)
             }
         );
     }
 
-    function pegarVideos(idDaPlaylist) {
+    function getStatistics(videoId) {
+        let stats = {
+            comments: "",
+            dislikes: "",
+            favorites: "",
+            likes: "",
+            views: "",
+        }
+        $.get("https://www.googleapis.com/youtube/v3/videos", {
+                part: 'statistics',
+                id: videoId,
+                key: API_KEY
+            },
+            function(data) {
+                stats.comments = data.items[0].statistics.commentCount
+                stats.dislikes = data.items[0].statistics.dislikeCount
+                stats.favorites = data.items[0].statistics.favoriteCount
+                stats.likes = data.items[0].statistics.likeCount
+                stats.views = data.items[0].statistics.viewCount
+
+                console.log(stats)
+            }
+        )
+    }
+
+    function getSnippet(idDaPlaylist) {
         $.get("https://www.googleapis.com/youtube/v3/playlistItems", {
                 part: 'snippet',
                 maxResults: 3,
@@ -40,19 +65,19 @@ $(document).ready(function() {
                 key: API_KEY
             },
             function(data) {
-                let videoData = { imagem: '', arquivo: '', titulo: '', desc: '', dataPub: '', videoID: '' }
                 console.log(data)
                 $('li').remove()
                 $.each(data.items, function(i, item) {
+                    let videoData = { imagem: '', arquivo: '', titulo: '', desc: '', dataPub: '', videoID: '' }
+                    let a = item.snippet.resourceId.videoId
                     videoData.videoID = item.snippet.resourceId.videoId
                     videoData.titulo = item.snippet.title
                     videoData.desc = item.snippet.description
                     videoData.dataPub = formatarData(item.snippet.publishedAt)
                     videoData.imagem = item.snippet.thumbnails.medium.url
 
-                    videoData.arquivo = `<li class="principal"><a class="fancybox-media" rel="media-gallery" href="https://www.youtube.com/watch?v=${videoData.videoID}"><div class="foto"><img src="${videoData.imagem}" /><div class="legenda"><h5>${videoData.titulo}</h5><p>${videoData.desc}</p><p class="dataPub">Data: ${videoData.dataPub}</p></div></div></a></li>`
+                    videoData.arquivo = `<li id="${videoData.videoID}" class="principal"><a class="fancybox-media" rel="media-gallery" href="https://www.youtube.com/watch?v=${videoData.videoID}"><div class="foto"><img src="${videoData.imagem}" /><div class="legenda"><h5>${videoData.titulo}</h5><p>${videoData.desc}</p><p class="dataPub">Data: ${videoData.dataPub}</p></div></div></a></li>`
                     $('#janela ul').append(videoData.arquivo)
-
                 })
             })
     }
@@ -75,12 +100,14 @@ $(document).ready(function() {
         return dataFormatada
     }
 
-    function getNome_canal() {
+    function getInput_nomeCanal() {
         $('#form_canal').submit(e => e.preventDefault())
         nomeCanal = $("#nome_canal").val()
         console.log(nomeCanal)
-        pegarIdCanal(nomeCanal)
+        getIDbyName(nomeCanal)
     }
 
-    $('#getNome_canal').click(() => getNome_canal())
+    $('#getNome_canal').click(() => getInput_nomeCanal())
+
+
 });
