@@ -1,7 +1,7 @@
 var nomeCanal = 'jovemnerd';
 var upload_id;
-const API_KEY = 'AIzaSyDR4h45cOPOl8DbtpwSa4erUuO6SaEQW_U'
-const CLIENT_ID_OAUTH = '362539803504-ggrq7ip7u9aaal9si92d4e0g3qgi5d7g.apps.googleusercontent.com'
+const API_KEY = ''
+const CLIENT_ID_OAUTH = ''
 
 $(document).ready(function() {
     console.log("meuscript carregado")
