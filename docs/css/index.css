@@ -8,6 +8,10 @@ div#janela ul {
     padding: 0;
 }
 
+#form_canal {
+    margin: 20px;
+}
+
 div#janela ul li.principal {
     position: relative;
     list-style: none;
@@ -20,33 +24,37 @@ div#janela ul li.principal {
 
 div#janela ul li.principal div.foto {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     clip: rect(0 320px 180px 0);
 }
+
 div#janela ul li.principal div.foto div.legenda:hover {
     top: 50px;
-    
 }
 
 div#janela ul li.principal div.foto div.legenda {
     position: absolute;
-    top: 130px; left: 0;
-    width: 320px; height: 50px;
+    top: 130px;
+    left: 0;
+    width: 320px;
+    height: 50px;
     z-index: 2;
     padding: 0 5px;
     cursor: pointer;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     box-sizing: border-box;
-    
     -webkit-transition: all 0.4s ease-out;
     -moz-transition: all 0.4s ease-out;
     -ms-transition: all 0.4s ease-out;
-    -o-transition: all 0.4s ease-out;   
+    -o-transition: all 0.4s ease-out;
     transition: all 0.4s ease-out;
 }
-div#janela ul li.principal div.foto div.legenda:hover{
+
+div#janela ul li.principal div.foto div.legenda:hover {
     height: 150px
 }
 
@@ -55,35 +63,39 @@ div#janela ul li.principal div.foto div.legenda h5 {
     text-transform: uppercase;
     font-weight: 100;
     color: rgb(255, 254, 224);
-    margin: 0;    
+    margin: 0;
 }
-div#janela ul li.principal div.foto div.legenda:hover p {    
-    color: white;    
-} 
-div#janela ul li.principal div.foto div.legenda:hover p.dataPub{
+
+div#janela ul li.principal div.foto div.legenda:hover p {
+    color: white;
+}
+
+div#janela ul li.principal div.foto div.legenda:hover p.dataPub {
     color: rgb(230, 60, 60);
 }
-div#janela ul li.principal div.foto div.legenda p {    
+
+div#janela ul li.principal div.foto div.legenda p {
     font-family: 'Segoe UI', sans-serif;
-    font-weight: 100; font-size: 0.8rem;
-    color: rgba(0,0,0,0);
+    font-weight: 100;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0);
     margin: 2px;
     max-height: 50px;
-    overflow: hidden;    
-
+    overflow: hidden;
     -webkit-transition: color 0.5s;
     -moz-transition: color 0.5s;
     -ms-transition: color 0.5s;
-    -o-transition: color 0.5s;   
+    -o-transition: color 0.5s;
     transition: color 0.5s;
 }
+
 div#janela ul li.principal div.foto div.legenda p.dataPub {
-    font-weight: 400;   
+    font-weight: 400;
     position: absolute;
     bottom: 30px;
     right: 0;
-
 }
+
 div#loadingDiv {
     height: 20px;
     width: 20px;

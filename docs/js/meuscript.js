@@ -1,65 +1,49 @@
-
 var nomeCanal = 'jovemnerd';
 var upload_id;
 const API_KEY = 'AIzaSyDR4h45cOPOl8DbtpwSa4erUuO6SaEQW_U'
 const CLIENT_ID_OAUTH = '362539803504-ggrq7ip7u9aaal9si92d4e0g3qgi5d7g.apps.googleusercontent.com'
 
-$(document).ready(function () {
+$(document).ready(function() {
     console.log("meuscript carregado")
-
-    $.get("https://www.googleapis.com/youtube/v3/channels", {
-        part: 'contentDetails',
-        forUsername: nomeCanal,
-        key: API_KEY
-    },
-        function (data) {
-            pegarVideos(getUploadID(data)).then($('#loadingDiv').css({ backgroundColor: 'rgb(51, 200, 0)' }))
-        }
-    );
     $('.fancybox').fancybox();
-    $('.fancybox-media').attr('rel','media-gallery').fancybox({
+    $('.fancybox-media').attr('rel', 'media-gallery').fancybox({
         arrows: false,
         maxWidth: 720,
         width: 720,
         maxHeight: 480,
         height: 480,
         helpers: {
-            media:{},
+            media: {},
             buttons: {}
         }
     })
-    function getUploadID(data) {
-        return new Promise(resolve => {
-            resolve(upload_id = data.items[0].contentDetails.relatedPlaylists.uploads)
-        })
-    }
-    function formatarData(data) {
-        let dataCrua = data
-        let dataNova = new Date(dataCrua.slice(0, 10).replace('-', ',').replace('-', ','))
-        let dia = dataNova.getDay();
-        let mes = dataNova.getMonth();
-        let ano = dataNova.getFullYear();
-        function colocarZeroNaFrente(numero) {
-            if (numero > 10) {
-                return numero + 1
-            } else {
-                return `0${numero + 1}`
+
+    function pegarIdCanal(nomeUsuarioDoCanal) {
+        const userName = nomeUsuarioDoCanal
+        $.get("https://www.googleapis.com/youtube/v3/channels", {
+                part: 'contentDetails',
+                forUsername: userName,
+                key: API_KEY
+            },
+            function(data) {
+                let idPlayList = data.items[0].contentDetails.relatedPlaylists.uploads
+                pegarVideos(idPlayList)
             }
-        }
-        let dataFormatada = `${colocarZeroNaFrente(dia)}/${colocarZeroNaFrente(mes)}/${colocarZeroNaFrente(ano)}`
-        return dataFormatada
+        );
     }
-    async function pegarVideos(listId) {
+
+    function pegarVideos(idDaPlaylist) {
         $.get("https://www.googleapis.com/youtube/v3/playlistItems", {
-            part: 'snippet',
-            maxResults: 3,
-            playlistId: await listId,
-            key: API_KEY
-        },
-            function (data) {
-                let videoData = { imagem: '', arquivo: '', titulo: '', desc: '', dataPub: '', videoID: ''}
+                part: 'snippet',
+                maxResults: 3,
+                playlistId: idDaPlaylist,
+                key: API_KEY
+            },
+            function(data) {
+                let videoData = { imagem: '', arquivo: '', titulo: '', desc: '', dataPub: '', videoID: '' }
                 console.log(data)
-                $.each(data.items, function (i, item) {
+                $('li').remove()
+                $.each(data.items, function(i, item) {
                     videoData.videoID = item.snippet.resourceId.videoId
                     videoData.titulo = item.snippet.title
                     videoData.desc = item.snippet.description
@@ -73,6 +57,30 @@ $(document).ready(function () {
             })
     }
 
-    $('#get_uploadID').click(() => getUploadID())
-    $('#get_playlistItem').click(() => pegarVideos())
+    function formatarData(data) {
+        let dataCrua = data
+        let dataNova = new Date(dataCrua.slice(0, 10).replace('-', ',').replace('-', ','))
+        let dia = dataNova.getDay();
+        let mes = dataNova.getMonth();
+        let ano = dataNova.getFullYear();
+
+        function colocarZeroNaFrente(numero) {
+            if (numero > 10) {
+                return numero + 1
+            } else {
+                return `0${numero + 1}`
+            }
+        }
+        let dataFormatada = `${colocarZeroNaFrente(dia)}/${colocarZeroNaFrente(mes)}/${colocarZeroNaFrente(ano)}`
+        return dataFormatada
+    }
+
+    function getNome_canal() {
+        $('#form_canal').submit(e => e.preventDefault())
+        nomeCanal = $("#nome_canal").val()
+        console.log(nomeCanal)
+        pegarIdCanal(nomeCanal)
+    }
+
+    $('#getNome_canal').click(() => getNome_canal())
 });
