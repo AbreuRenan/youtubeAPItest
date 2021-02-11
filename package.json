@@ -1,0 +1,27 @@
+{
+  "name": "youtube",
+  "version": "1.0.0",
+  "description": "youtubeAPI test",
+  "main": "meuscript.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbreuRenan/youtubeAPItest.git"
+  },
+  "keywords": [
+    "YoutubeAPI",
+    "API",
+    "Youtube"
+  ],
+  "author": "Renan Abreu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbreuRenan/youtubeAPItest/issues"
+  },
+  "homepage": "https://github.com/AbreuRenan/youtubeAPItest#readme"
+}
