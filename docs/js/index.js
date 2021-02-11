@@ -1,7 +1,6 @@
 var nomeCanal = 'jovemnerd';
 var upload_id;
-const API_KEY = process.env.YOUTUBE_API_KEY
-console.log(API_KEY)
+const API_KEY = 'AIzaSyDR4h45cOPOl8DbtpwSa4erUuO6SaEQW_U' //revoked
 
 $(document).ready(function() {
     console.log("meuscript carregado")
